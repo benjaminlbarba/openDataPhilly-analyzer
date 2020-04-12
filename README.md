@@ -1,2 +1,5 @@
 # 594-group-project
 A group project using OpenDataPhilly
+
+Project Instructions PDF:
+https://d18ky98rnyall9.cloudfront.net/7WXylxIdStGl8pcSHTrRmg_990ce93e89f040218badab2f10d5e57b_CIT-594-Group-Project.pdf?Expires=1586822400&Signature=MX0KnhGni5mhH6e6njgZyl0A~uamG5RmjUeWIyPMflt7YsNWudxQh8cyk1Vd5dTP4TFCkaTe3vEGGyWQsilEI4EA-jMq6qkh7pO-obnpbi26VSQ7fo8QHVm2YpoMi0mQuetRFnpbgfnlREkmUJxzXats8f0NIUwMLJuI2VWHTxM_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A
