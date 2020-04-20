@@ -5,7 +5,11 @@ import edu.upenn.cit594.data.Property;
 
 
 
-
+/**
+ * This is step 3 and 4 in the hw
+ * @author benjamin.barbaimbellus
+ *
+ */
 public class PropertiesCalculator {
 	
 	private static int doCalculation(PropertyAccessor pa, LinkedList<Property> properties, String zipcode){
