@@ -3,6 +3,8 @@ package edu.upenn.cit594;
 import java.util.LinkedList;
 
 import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.processor.LivableAreaAccessor;
+import edu.upenn.cit594.processor.MarketValueAccessor;
 import edu.upenn.cit594.processor.PropertiesCalculator;
 import edu.upenn.cit594.ui.UserInput;
 
@@ -26,6 +28,10 @@ public class Main {
 	 *  4 The name of the log file (described below)
 	 */
 	public static void inputHandler(int input) {
+		int avg;
+		String zipcode;
+		LinkedList<Property> properties = new LinkedList<>(); //TODO: pass this in, this is empty rn
+		
 		switch(input) {
 		  case 0:
 			//TODO: exit program
@@ -37,13 +43,16 @@ public class Main {
 			// TODO:show the total parking fines per capita for each ZIP Code, as described in Step #2 below.
 			break;
 		  case 3:
-			String zipcode = UserInput.readingZipCode();
-			LinkedList<Property> properties = new LinkedList<>();
-			PropertiesCalculator.calculateAvgResidentialValue(properties, zipcode);
-			//TODO: print out and prompt user again
+			zipcode = UserInput.readingZipCode();
+			avg = PropertiesCalculator.calculateAvgForPropertyAttribute(new MarketValueAccessor(), properties, zipcode);
+			System.out.println("Average Market Value for Residential Properties at zipcode " + zipcode + " is " +  avg + ".");
+			//TODO: prompt user again
 			break;
 		  case 4:
-			// TODO:show the average total livable area for residences in a specified ZIP Code, as described in Step #4
+			zipcode = UserInput.readingZipCode();
+			avg = PropertiesCalculator.calculateAvgForPropertyAttribute(new LivableAreaAccessor(), properties, zipcode);
+			System.out.println("Average Livable Area for Residential Properties at zipcode " + zipcode + " is " +  avg + ".");
+			//TODO: prompt user again
 			break;
 		  case 5:
 			// TODO: show the total residential market value per capita for a specified ZIP Code, as described in Step #5 below.
