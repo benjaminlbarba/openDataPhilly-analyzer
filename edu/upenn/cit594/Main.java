@@ -1,6 +1,10 @@
 package edu.upenn.cit594;
 
-import src.edu.upenn.cit594.ui.UserInput;
+import java.util.LinkedList;
+
+import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.processor.PropertiesCalculator;
+import edu.upenn.cit594.ui.UserInput;
 
 /**
  * 
@@ -33,7 +37,10 @@ public class Main {
 			// TODO:show the total parking fines per capita for each ZIP Code, as described in Step #2 below.
 			break;
 		  case 3:
-			// TODO:show the average market value for residences in a specified ZIP Code, as described in Step #3 below.
+			String zipcode = UserInput.readingZipCode();
+			LinkedList<Property> properties = new LinkedList<>();
+			PropertiesCalculator.calculateAvgResidentialValue(properties, zipcode);
+			//TODO: print out and prompt user again
 			break;
 		  case 4:
 			// TODO:show the average total livable area for residences in a specified ZIP Code, as described in Step #4
@@ -64,7 +71,7 @@ public class Main {
 			}
 			
 			//Read user input
-			int input = UserInput.readingUserInput();
+			int input = UserInput.readingOperationSelection();
 			inputHandler(input);
 			
 			//TODO: extract and process data

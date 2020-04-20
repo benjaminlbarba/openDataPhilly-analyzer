@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import edu.upenn.cit594.data.ParkingViolation;
-import edu.upenn.cit594.data.PropertyValue;
+import edu.upenn.cit594.data.Property;
 
 public class PropertiesReader {
 	
@@ -18,9 +18,9 @@ public class PropertiesReader {
 	}
 	
 	//arraylist for now, subject to change
-	public ArrayList<PropertyValue> read(String fileName) {
+	public ArrayList<Property> read(String fileName) {
 		File propertyFile = new File(fileName);
-		ArrayList<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
+		ArrayList<Property> propertyValues = new ArrayList<Property>();
 		Scanner propertyScanner = null;
 		try {
 			propertyScanner = new Scanner(propertyFile);

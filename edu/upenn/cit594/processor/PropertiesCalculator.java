@@ -1,18 +1,42 @@
 package edu.upenn.cit594.processor;
 
+import java.util.LinkedList;
+
+import edu.upenn.cit594.data.Property;
+
 public class PropertiesCalculator {
-	/*
 	
-	The average residential market value that your program displays must be truncated to
-	an integer (not rounded!), and your program should display 0 if the total residential
-	market value for the ZIP Code is 0, or if the user enters an input that is not a valid ZIP
-	Code or is not a ZIP Code that is listed in the input files.
-	Your program must not write any other information to the console. It must only
-	display the average residential market value for the specified ZIP Code and then the
-	program should prompt for another input in Step #0.*/
-	
-	//option 3 - prompt the user to enter a zip code
-	
-	//print out the average residential market value for that ZIP Code, 
-	//i.e. the total market value for all residences in the ZIP Code divided by the number of residences.
+	/**
+	 * calculate the average residential market value for that ZIP Code, 
+	 * @param properties
+	 * @param zipcode
+	 * @return
+	 */
+	public static int calculateAvgResidentialValue(LinkedList<Property> properties, String zipcode){
+		//if the user enters an input that is not a valid ZIP
+		if (!Property.isValidZipCode(zipcode)) {
+			return 0;
+		}
+		
+		Double avg = 0.0;
+		Double totalMarketValue = 0.0;
+		int numProperties = 0;
+		for (Property property : properties) {
+			if (property.getZipcode().equals(zipcode)){
+				totalMarketValue += property.getMarketValue();
+				numProperties++;
+			}
+		}
+		
+		if (numProperties != 0) {
+			avg = totalMarketValue / numProperties;
+		}
+		else {
+			//not a ZIP Code that is listed in the input files.
+			return 0;
+		}
+		
+		//market value that your program displays must be truncated an integer (not rounded!)
+		return (int) Math.floor(avg);
+	}
 }
