@@ -51,6 +51,9 @@ public class PropertyPopulationCalculator {
 		
 		//market value that your program displays must be truncated an integer (not rounded!)
 		Double marketValuePerCapita = totalMarketValue / population.get(zipcode);
-		return (int) Math.floor(marketValuePerCapita);
+		int result = (int) Math.floor(marketValuePerCapita);
+		results.put(zipcode, result);
+		
+		return result;
 	}
 }

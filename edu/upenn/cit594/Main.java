@@ -106,14 +106,11 @@ public class Main {
 				return -1;
 			}
 			
-			//TODO: read files in here
+			//TODO: extract and process data
 			//maybe create a LinkedListStorage.java
 			
 			//Read user input
 			inputHandler();
-			
-			//TODO: extract and process data
-			
 			
 			//TODO: display and log
 			
