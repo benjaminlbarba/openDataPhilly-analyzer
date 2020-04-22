@@ -5,7 +5,7 @@ import java.util.HashMap;
 import edu.upenn.cit594.data.Property;
 
 public class MarketValueAccessor implements PropertyAccessor {
-	private static HashMap<String, Integer> results;
+	private static HashMap<String, Integer> results = new HashMap<>();
 	
 	@Override
 	public Double access(Property property) {

@@ -27,23 +27,25 @@ public class PropertyPopulationCalculator {
 	display the total residential market value per capita and then the program should prompt
 	for another input in Step #0.*/
 	
+	static HashMap<String, Integer> results = new HashMap<>();
+	
 	/**
 	 * calculate the residential market value per capita for that ZIP Code, 
 	 */
-	public static int calculateMarketValuePerCapita(PropertyAccessor pa, LinkedList<Property> properties, String zipcode, HashMap<String, Integer> population){
+	public static int calculateMarketValuePerCapita(LinkedList<Property> properties, String zipcode, HashMap<String, Integer> population){
 		//if the user enters an input that is not a valid ZIP
 		if (!Property.isValidZipCode(zipcode)) {
 			return 0;
 		}
 		
-		if (pa.getResults().containsKey(zipcode)){
-			return pa.accessResult(zipcode);
+		if (results.containsKey(zipcode)){
+			return results.get(zipcode);
 		}
 		
 		Double totalMarketValue = 0.0;
 		for (Property property : properties) {
 			if (property.getZipcode().equals(zipcode)){
-				totalMarketValue += pa.access(property);
+				totalMarketValue += property.getMarketValue();
 			}
 		}
 		

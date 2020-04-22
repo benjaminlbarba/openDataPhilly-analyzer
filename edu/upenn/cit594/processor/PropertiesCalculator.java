@@ -14,17 +14,17 @@ public class PropertiesCalculator {
 	
 	private static int doCalculation(PropertyAccessor pa, LinkedList<Property> properties, String zipcode){
 		Double avg = 0.0;
-		Double totalMarketValue = 0.0;
+		Double totalValue = 0.0;
 		int numProperties = 0;
 		for (Property property : properties) {
 			if (property.getZipcode().equals(zipcode)){
-				totalMarketValue += pa.access(property);
+				totalValue += pa.access(property);
 				numProperties++;
 			}
 		}
 		
 		if (numProperties != 0) {
-			avg = totalMarketValue / numProperties;
+			avg = totalValue / numProperties;
 		}
 		else {
 			//not a ZIP Code that is listed in the input files.
