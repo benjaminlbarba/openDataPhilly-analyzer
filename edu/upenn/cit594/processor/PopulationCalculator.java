@@ -1,10 +1,11 @@
 package edu.upenn.cit594.processor;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
-import edu.upenn.cit594.datamanagement.PopulationReader;
 
 public class PopulationCalculator {
+	public static int totalPopulationInstance = 0;
 	
 	/*
 	 * If the user enters a 1 when prompted for input in Step #0, the program should display
@@ -22,11 +23,16 @@ public class PopulationCalculator {
 	*/
 	
 	public static int calculateTotalPopulation(HashMap<String, Integer> populationByZipcode) {
-		int totalPopulation = 0;
-		for (String zipcode : populationByZipcode.keySet()) {
-			totalPopulation += populationByZipcode.get(zipcode);
-		}
-		return totalPopulation;
+		if (totalPopulationInstance != 0) {
+			return totalPopulationInstance;
+		} else {
+			int totalPopulation = 0;
+			for (String zipcode : populationByZipcode.keySet()) {
+				totalPopulation += populationByZipcode.get(zipcode);
+			}
+			totalPopulationInstance = totalPopulation;
+			return totalPopulation;
+		}	
 	}
 	
 	

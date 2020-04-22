@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 
+
 public class PopulationReader {
 
 	
 	public static HashMap<String, Integer> read(String fileName) {
 		File populationTextFile = new File(fileName);
-		HashMap<String, Integer> zipcodeAndPopulation = new HashMap<String, Integer>();
+		HashMap<String, Integer> populations = new HashMap<String, Integer>();
 		Scanner populationScanner = null;
 		try {
 			populationScanner = new Scanner(populationTextFile);
@@ -21,9 +22,9 @@ public class PopulationReader {
 		while (populationScanner.hasNext()) {
 			String populationLine = populationScanner.nextLine();
 			String[] populationValues = populationLine.split(" ");
-			zipcodeAndPopulation.put(populationValues[0], Integer.parseInt(populationValues[1]));
+			populations.put(populationValues[0], Integer.parseInt(populationValues[1]));
 		}
-		return zipcodeAndPopulation;
+		return populations;
  	}
 	
 	

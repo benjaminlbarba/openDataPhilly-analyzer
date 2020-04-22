@@ -19,25 +19,25 @@ package edu.upenn.cit594.logging;
  */
 public class UserInfoLogger {
 	
-	public void logTime() {
+	public static void logTime() {
 		long time = System.currentTimeMillis();
 		Logger.getInstance().log(Long.toString(time) + " ");
 		Logger.getInstance().end();
 	}
 	
-	public void logIntAtThisTime(int myInt) {
+	public static void logIntAtThisTime(int myInt) {
 		logTime();
 		Logger.getInstance().log(Integer.toString(myInt));
 		Logger.getInstance().end();
 	}
 	
-	public void logStringAtThisTime(String myString) {
+	public static void logStringAtThisTime(String myString) {
 		logTime();
 		Logger.getInstance().log(myString);
 		Logger.getInstance().end();
 	}
 	
-	public void logStringArrayAtThisTime(String[] args) {
+	public static void logStringArrayAtThisTime(String[] args) {
 		logTime();
 		for (String arg : args) {
 			Logger.getInstance().log(arg);

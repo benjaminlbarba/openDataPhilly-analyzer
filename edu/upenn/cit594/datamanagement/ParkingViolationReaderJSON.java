@@ -3,9 +3,8 @@ package edu.upenn.cit594.datamanagement;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,13 +31,13 @@ public class ParkingViolationReaderJSON {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		java.util.Iterator iter = parkingViolations.iterator();
+		Iterator iter = parkingViolations.iterator();
 		while (iter.hasNext()) {
 			JSONObject parkingViolation = (JSONObject) iter.next();
 			Fine fine = new Fine((Double) parkingViolation.get("fine"),(String) parkingViolation.get("zip-code"));
 			fines.add(fine);
 		}
-		return null;
+		return fines;
 	}
 	
 
