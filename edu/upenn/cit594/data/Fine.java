@@ -7,11 +7,20 @@ package edu.upenn.cit594.data;
  *
  */
 public class Fine {
-	Double amount;
-	String zipcode;
+	private Double amount;
+	private String zipcode;
 	
 	public Fine(Double amount, String zipcode){
 		this.amount = amount;
 		this.zipcode = zipcode;
 	}
+	
+	public String getZipcode() {
+		return zipcode;
+	}
+	
+	public Double getAmount() {
+		return amount;
+	}
+	
 }

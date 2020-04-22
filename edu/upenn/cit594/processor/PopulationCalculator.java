@@ -1,5 +1,8 @@
 package edu.upenn.cit594.processor;
 
+import java.util.HashMap;
+
+import edu.upenn.cit594.datamanagement.PopulationReader;
 
 public class PopulationCalculator {
 	
@@ -17,6 +20,14 @@ public class PopulationCalculator {
 	must determine for themselves what the correct output should be for other parts of this
 	assignment.
 	*/
+	
+	public static int calculateTotalPopulation(HashMap<String, Integer> populationByZipcode) {
+		int totalPopulation = 0;
+		for (String zipcode : populationByZipcode.keySet()) {
+			totalPopulation += populationByZipcode.get(zipcode);
+		}
+		return totalPopulation;
+	}
 	
 	
 }

@@ -1,11 +1,17 @@
 package edu.upenn.cit594;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.datamanagement.ParkingViolationReaderCSV;
+import edu.upenn.cit594.datamanagement.PopulationReader;
+import edu.upenn.cit594.processor.FinesPerCapita;
 import edu.upenn.cit594.processor.LivableAreaAccessor;
 import edu.upenn.cit594.processor.MarketValueAccessor;
+import edu.upenn.cit594.processor.PopulationCalculator;
 import edu.upenn.cit594.processor.PropertiesCalculator;
+import edu.upenn.cit594.processor.PropertyPopulationCalculator;
 import edu.upenn.cit594.ui.UserInput;
 
 /**
@@ -17,6 +23,11 @@ import edu.upenn.cit594.ui.UserInput;
 
 public class Main {
 	static final int NUM_ARGS = 5;
+	static String fileType;
+	static String fileNameParkingViolations;
+	static String fileNamePropertyValues;
+	static String fileNamePopulation;
+	static String fileNameLog;
 	
 	/**
 	 * reads runtime arguments and performs operations using each argument
@@ -31,31 +42,49 @@ public class Main {
 		int avg;
 		String zipcode;
 		LinkedList<Property> properties = new LinkedList<>(); //TODO: pass this in, this is empty rn
+		HashMap<String, Integer> populationByZipcode = PopulationReader.read(fileNamePopulation);
 		
 		switch(input) {
 		  case 0:
-			//TODO: exit program
+			  // log time
+			System.exit(0);
 		    break;
 		  case 1:
-		    // TODO: show the total population for all ZIP Codes, as described in Step #1 below.
+			  // log time
+			System.out.println(PopulationCalculator.calculateTotalPopulation(populationByZipcode));
 		    break;
 		  case 2:
-			// TODO:show the total parking fines per capita for each ZIP Code, as described in Step #2 below.
+			  // log time
+			HashMap<String, Double> finesPerCapita = FinesPerCapita.calculateFinesPerZipcode(ParkingViolationReaderCSV.read(fileNameParkingViolations), populationByZipcode);
+			for (String zipcodeCase2 : finesPerCapita.keySet()) {
+				System.out.println(zipcodeCase2 + " " + finesPerCapita.get(zipcodeCase2));
+			}
+			int nextInputFromCase2 = UserInput.readingOperationSelection();
+			inputHandler(nextInputFromCase2);
 			break;
 		  case 3:
+			  // log time
 			zipcode = UserInput.readingZipCode();
 			avg = PropertiesCalculator.calculateAvgForPropertyAttribute(new MarketValueAccessor(), properties, zipcode);
 			System.out.println("Average Market Value for Residential Properties at zipcode " + zipcode + " is " +  avg + ".");
-			//TODO: prompt user again
+			int nextInputFromCase3 = UserInput.readingOperationSelection();
+			inputHandler(nextInputFromCase3);
 			break;
 		  case 4:
+			  //log time
 			zipcode = UserInput.readingZipCode();
 			avg = PropertiesCalculator.calculateAvgForPropertyAttribute(new LivableAreaAccessor(), properties, zipcode);
 			System.out.println("Average Livable Area for Residential Properties at zipcode " + zipcode + " is " +  avg + ".");
-			//TODO: prompt user again
+			int nextInputFromCase4 = UserInput.readingOperationSelection();
+			inputHandler(nextInputFromCase4);
 			break;
 		  case 5:
-			// TODO: show the total residential market value per capita for a specified ZIP Code, as described in Step #5 below.
+			  // log time
+			zipcode = UserInput.readingZipCode();
+			int marketValuePerCapita = PropertyPopulationCalculator.calculateMarketValuePerCapita(new MarketValueAccessor(), properties, zipcode, populationByZipcode);
+			System.out.println("Market Value per Capita for Residential Properties at zipcode " + zipcode + " is " +  marketValuePerCapita + ".");
+			int nextInputFromCase5 = UserInput.readingOperationSelection();
+			inputHandler(nextInputFromCase5);
 		  case 6:
 			// TODO:  show the results of your custom feature, as described in Step #6 below 
 		  default:
@@ -69,11 +98,11 @@ public class Main {
 		}
 		
 		if (args.length == NUM_ARGS) {			
-			String fileType = args[0];
-			String fileNameParkingViolations = args[1];
-			String fileNamePropertyValues = args[2];
-			String fileNamePopulation = args[3];
-			String fileNameLog = args[4];
+			fileType = args[0];
+			fileNameParkingViolations = args[1];
+			fileNamePropertyValues = args[2];
+			fileNamePopulation = args[3];
+			fileNameLog = args[4];
 			
 			if (!fileType.equalsIgnoreCase("CSV") && !fileType.equalsIgnoreCase("JSON")){
 				return -1;
