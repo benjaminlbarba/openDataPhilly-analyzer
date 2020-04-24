@@ -59,16 +59,19 @@ public class Main {
 			break;
 		  case 3:
 			zipcode = UserInput.readingZipCode();
+			UserInfoLogger.logStringAtThisTime(zipcode);
 			avg = PropertiesCalculator.calculateAvgForPropertyAttribute(new MarketValueAccessor(), DataStorage.properties, zipcode);
 			System.out.println("Average Market Value for Residential Properties at zipcode " + zipcode + " is " +  avg + ".");
 			break;
 		  case 4:
 			zipcode = UserInput.readingZipCode();
+			UserInfoLogger.logStringAtThisTime(zipcode);
 			avg = PropertiesCalculator.calculateAvgForPropertyAttribute(new LivableAreaAccessor(), DataStorage.properties, zipcode);
 			System.out.println("Average Livable Area for Residential Properties at zipcode " + zipcode + " is " +  avg + ".");
 			break;
 		  case 5:
 			zipcode = UserInput.readingZipCode();
+			UserInfoLogger.logStringAtThisTime(zipcode);
 			int marketValuePerCapita = PropertyPopulationCalculator.calculateMarketValuePerCapita(DataStorage.properties, zipcode, DataStorage.population);
 			System.out.println("Market Value per Capita for Residential Properties at zipcode " + zipcode + " is " +  marketValuePerCapita + ".");
 		  case 6:
@@ -82,6 +85,8 @@ public class Main {
 	}
 	
 	private static int argumentHandler(String[] args) {
+		UserInfoLogger.logStringArrayAtThisTime(args);
+		
 		for (int i = 0; i < args.length; i++) {
 			System.out.println("args[" + i + "] = " + args[i]);
 		}
@@ -91,19 +96,18 @@ public class Main {
 			String fileNameParkingViolations = args[1];
 			String fileNamePropertyValues = args[2];
 			String fileNamePopulation = args[3];
-			String fileNameLog = args[4];
-			
+			String fileNameLog = args[4];	
 			if (!fileType.equalsIgnoreCase("CSV") && !fileType.equalsIgnoreCase("JSON")){
 				return -1;
 			}
+			
+			Logger.initFileName(fileNameLog);
 			
 			ReadAllFiles.read(fileNameParkingViolations, fileNamePropertyValues, fileNamePopulation, fileType);
 			
 			//Read user input
 			inputHandler();
 			
-			//TODO: display and log
-			Logger.initFileName(fileNameLog);
 			
 		}
 		else {

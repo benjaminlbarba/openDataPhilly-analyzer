@@ -11,12 +11,14 @@ import java.util.Scanner;
 
 import edu.upenn.cit594.data.Fine;
 import edu.upenn.cit594.data.ParkingViolation;
+import edu.upenn.cit594.logging.UserInfoLogger;
 
 public class ParkingViolationReaderCSV {
 	
 	
 	public static LinkedList<Fine> read(String fileName) {
 		File parkingViolations = new File(fileName);
+		UserInfoLogger.logStringAtThisTime(fileName);
 		LinkedList<Fine> fines = new LinkedList<Fine>();
 		Scanner parkingScanner = null;
 		try {

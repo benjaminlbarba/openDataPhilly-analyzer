@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import edu.upenn.cit594.logging.UserInfoLogger;
+
 
 
 public class PopulationReader {
@@ -11,6 +13,7 @@ public class PopulationReader {
 	
 	public static HashMap<String, Integer> read(String fileName) {
 		File populationTextFile = new File(fileName);
+		UserInfoLogger.logStringAtThisTime(fileName);
 		HashMap<String, Integer> populations = new HashMap<String, Integer>();
 		Scanner populationScanner = null;
 		try {

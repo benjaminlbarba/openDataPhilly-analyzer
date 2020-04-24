@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import edu.upenn.cit594.data.Fine;
+import edu.upenn.cit594.logging.UserInfoLogger;
 
 public class ParkingViolationReaderJSON {
 	
@@ -21,6 +22,7 @@ public class ParkingViolationReaderJSON {
 		JSONArray parkingViolations = null;
 		try {
 			parkingViolations = (JSONArray) parser.parse(new FileReader(fileName));
+			UserInfoLogger.logStringAtThisTime(fileName);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
