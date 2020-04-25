@@ -16,7 +16,9 @@ import edu.upenn.cit594.processor.MarketValueAccessor;
 import edu.upenn.cit594.processor.PopulationCalculator;
 import edu.upenn.cit594.processor.PropertiesCalculator;
 import edu.upenn.cit594.processor.PropertyPopulationCalculator;
+import edu.upenn.cit594.processor.PropertyPopulationParkingCalculator;
 import edu.upenn.cit594.ui.UserInput;
+import javafx.util.Pair;
 
 /**
  * 
@@ -75,7 +77,10 @@ public class Main {
 			int marketValuePerCapita = PropertyPopulationCalculator.calculateMarketValuePerCapita(DataStorage.properties, zipcode, DataStorage.population);
 			System.out.println("Market Value per Capita for Residential Properties at zipcode " + zipcode + " is " +  marketValuePerCapita + ".");
 		  case 6:
-			// TODO:  show the results of your custom feature, as described in Step #6 below 
+			  zipcode = UserInput.readingZipCode();
+				UserInfoLogger.logStringAtThisTime(zipcode);
+				Pair <String,Double> result = PropertyPopulationParkingCalculator.calculateViolationsAtHighestGarageSpace(DataStorage.fines, DataStorage.properties, DataStorage.population);
+				System.out.println("Violations per Capita for Residential Properties at zipcode " + result.getKey() + " is " +  result.getValue() + ".");
 		  default:
 		    // code block
 			  break;
@@ -105,7 +110,6 @@ public class Main {
 			
 			ReadAllFiles.read(fileNameParkingViolations, fileNamePropertyValues, fileNamePopulation, fileType);
 			
-			//Read user input
 			inputHandler();
 			
 			

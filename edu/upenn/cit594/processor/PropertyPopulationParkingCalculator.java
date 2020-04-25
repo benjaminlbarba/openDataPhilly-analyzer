@@ -6,6 +6,7 @@ import java.util.Map;
 
 import edu.upenn.cit594.data.Fine;
 import edu.upenn.cit594.data.Property;
+import javafx.util.Pair;
 
 /**
  * 
@@ -13,7 +14,7 @@ import edu.upenn.cit594.data.Property;
  *
  */
 public class PropertyPopulationParkingCalculator {
-	private static Double result = -1.0;
+	private static Pair<String, Double> result = new Pair<>("", -1.0);
 	
 	/**
 	 * What was the number of traffic violation per capita 
@@ -23,8 +24,8 @@ public class PropertyPopulationParkingCalculator {
 	 * @param population
 	 * @return
 	 */
-	public static Double calculateViolationsPerCapitaAtZipWithHighestGarageSpacesPerCapita(LinkedList<Fine> fines, LinkedList<Property> properties, HashMap<String, Integer> population) {
-		if (result != -1.0) {
+	public static Pair <String,Double> calculateViolationsAtHighestGarageSpace(LinkedList<Fine> fines, LinkedList<Property> properties, HashMap<String, Integer> population) {
+		if (result.getKey() != "") {
 			return result;
 		}
 		
@@ -62,7 +63,7 @@ public class PropertyPopulationParkingCalculator {
 			}
 		}
 		
-		result = numFines / (population.get(maxZipCode) * 1.0);
+		Pair <String,Double> result = new Pair<>(maxZipCode, numFines / (population.get(maxZipCode) * 1.0));
 		return result;
 	}
 }
