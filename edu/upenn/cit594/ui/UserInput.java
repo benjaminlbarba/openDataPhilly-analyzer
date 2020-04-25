@@ -1,5 +1,6 @@
 package edu.upenn.cit594.ui;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -9,20 +10,19 @@ public class UserInput {
 	
 	public static int readingOperationSelection(){
 		Scanner in = new Scanner(System.in);
+		int inputTracker = -1;
 		int input = -1;
-		while (input < 0 || input > 6 ) {
+		while (inputTracker < 0) {
 			System.out.println("Please input a number 0 - 6");
-			try {	
-				input = in.nextInt();
-			}
-			catch(InputMismatchException e) {
+			input = in.nextInt();
+			if (isValidInput(input)) {
+				System.out.println(input);
+				break;
+			} else {
 				System.out.println("Invalid input you trickster!");
-				in.nextLine();
+				//prompt the user again
 			}
-			//prompt the user again
 		}
-		
-		in.close();
 		return input;
 	}
 	
@@ -43,5 +43,21 @@ public class UserInput {
 		
 		in.close();
 		return input;
+	}
+	
+	public static boolean isValidInput(int input) {
+		ArrayList<Integer> validInputs = new ArrayList<Integer>();
+		validInputs.add(0);
+		validInputs.add(1);
+		validInputs.add(2);
+		validInputs.add(3);
+		validInputs.add(4);
+		validInputs.add(5);
+		validInputs.add(6);
+		if (validInputs.contains(input)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

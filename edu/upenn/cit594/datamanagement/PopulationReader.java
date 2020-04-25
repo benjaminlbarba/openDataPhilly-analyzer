@@ -8,7 +8,7 @@ import edu.upenn.cit594.logging.UserInfoLogger;
 
 
 
-public class PopulationReader {
+public class PopulationReader extends OpenPhillyFileReader {
 
 	
 	public static HashMap<String, Integer> read(String fileName) {
@@ -25,10 +25,25 @@ public class PopulationReader {
 		while (populationScanner.hasNext()) {
 			String populationLine = populationScanner.nextLine();
 			String[] populationValues = populationLine.split(" ");
-			populations.put(populationValues[0], Integer.parseInt(populationValues[1]));
+			
+			// check if number of inputs is correct
+			if (populationValues.length != 2) {
+				continue;
+			}
+			
+			String zipcode = populationValues[0];
+			String population = populationValues[1];
+			
+			// make sure necessary data is not missing and is in the correct format
+			if (isEmpty(zipcode) | !isNumeric(population)) {
+				continue;
+			}
+			zipcode = convertZipcode(zipcode);
+			populations.put(zipcode, Integer.parseInt(population));
 		}
 		return populations;
  	}
 	
+
 	
 }

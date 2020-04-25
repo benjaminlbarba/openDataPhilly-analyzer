@@ -2,6 +2,7 @@ package edu.upenn.cit594;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.TreeMap;
 
 import edu.upenn.cit594.data.DataStorage;
 import edu.upenn.cit594.data.Property;
@@ -16,7 +17,6 @@ import edu.upenn.cit594.processor.MarketValueAccessor;
 import edu.upenn.cit594.processor.PopulationCalculator;
 import edu.upenn.cit594.processor.PropertiesCalculator;
 import edu.upenn.cit594.processor.PropertyPopulationCalculator;
-import edu.upenn.cit594.processor.PropertyPopulationParkingCalculator;
 import edu.upenn.cit594.ui.UserInput;
 import javafx.util.Pair;
 
@@ -48,13 +48,14 @@ public class Main {
 		
 		switch(input) {
 		  case 0:
+			System.out.println("Exiting the program");
 			System.exit(0);
 		    break;
 		  case 1:
 			System.out.println(PopulationCalculator.calculateTotalPopulation(DataStorage.population));
 		    break;
 		  case 2:
-			HashMap<String, Double> finesPerCapita = FinesPerCapitaCalculator.calculateFinesPerZipcode(DataStorage.fines, DataStorage.population);
+			TreeMap<String, String> finesPerCapita = FinesPerCapitaCalculator.calculateFinesPerZipcode(DataStorage.fines, DataStorage.population);
 			for (String zipcodeForFines : finesPerCapita.keySet()) {
 				System.out.println(zipcodeForFines + " " + finesPerCapita.get(zipcodeForFines));
 			}
@@ -78,8 +79,8 @@ public class Main {
 			System.out.println("Market Value per Capita for Residential Properties at zipcode " + zipcode + " is " +  marketValuePerCapita + ".");
 		  case 6:
 			    UserInfoLogger.logTime();
-				Pair <String,Double> result = PropertyPopulationParkingCalculator.calculateViolationsAtHighestGarageSpace(DataStorage.fines, DataStorage.properties, DataStorage.population);
-				System.out.println("Violations per Capita for zipcode with the highest number of garage spaces (zipcode " + result.getKey() + ") is " +  result.getValue() + ".");
+				//Pair <String,Double> result = PropertyPopulationParkingCalculator.calculateViolationsAtHighestGarageSpace(DataStorage.fines, DataStorage.properties, DataStorage.population);
+				//System.out.println("Violations per Capita for zipcode with the highest number of garage spaces (zipcode " + result.getKey() + ") is " +  result.getValue() + ".");
 		  default:
 		    // code block
 			  break;
@@ -90,7 +91,7 @@ public class Main {
 	
 	private static int argumentHandler(String[] args) {
 		UserInfoLogger.logStringArrayAtThisTime(args);
-		
+		System.out.println("yes");
 		for (int i = 0; i < args.length; i++) {
 			System.out.println("args[" + i + "] = " + args[i]);
 		}

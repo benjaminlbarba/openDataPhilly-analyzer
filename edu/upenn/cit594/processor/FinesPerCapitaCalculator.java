@@ -1,12 +1,17 @@
 package edu.upenn.cit594.processor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.TreeMap;
 
+import edu.upenn.cit594.data.DataStorage;
 import edu.upenn.cit594.data.Fine;
+import edu.upenn.cit594.datamanagement.ReadAllFiles;
 
 public class FinesPerCapitaCalculator{
-	public static HashMap<String, Double> finesPerCapitaInstance = new HashMap<>();
+	public static TreeMap<String, String> finesPerCapitaInstance = new TreeMap<>();
 
 	/*
 	 * If the user enters a 2 when prompted for input in Step #0, your program should display
@@ -14,12 +19,12 @@ public class FinesPerCapitaCalculator{
 		fines divided by the population of that ZIP Code, as provided in the population input file.
 	 */
 	
-	public static HashMap<String, Double> calculateFinesPerZipcode(LinkedList<Fine>fines, HashMap<String, Integer> population) {
+	public static TreeMap<String, String> calculateFinesPerZipcode(LinkedList<Fine>fines, HashMap<String, Integer> population) {
 		if (!finesPerCapitaInstance.isEmpty()) {
 			return finesPerCapitaInstance;
 		} else {
 			HashMap<String, Double> finesPerZipcode = new HashMap<String, Double>();
-			HashMap<String, Double> finesPerCapita = new HashMap<String, Double>();
+			TreeMap<String, String> finesPerCapita = new TreeMap<String, String>();
 			for (Fine fine : fines) {
 				String currentZipcode = fine.getZipcode();
 				if (finesPerZipcode.containsKey(currentZipcode)) {
@@ -32,12 +37,17 @@ public class FinesPerCapitaCalculator{
 			}
 			for (String zipcode: finesPerZipcode.keySet()) {
 				Double fine = finesPerZipcode.get(zipcode);
+				if (!population.containsKey(zipcode)) {
+					continue;
+				}
 				int currentPopulation = population.get(zipcode);
 				// only add to the hashmap if population and fines per capita is not zero
 				if (currentPopulation != 0 & fine != 0) {
-					// TODO: Need to be truncated to the correct decimal amount.
 					Double finePerCapita = fine / currentPopulation;
-					finesPerCapita.put(zipcode, finePerCapita);
+					BigDecimal finePerCapitaBD = BigDecimal.valueOf(finePerCapita);
+					finePerCapitaBD = finePerCapitaBD.setScale(4, RoundingMode.DOWN);
+					String finePerCapitaStr = String.format("%.4f", finePerCapitaBD);
+					finesPerCapita.put(zipcode, finePerCapitaStr);
 				} else {
 					continue;
 				}
@@ -47,6 +57,12 @@ public class FinesPerCapitaCalculator{
 		}
 	}
 	
-	
+	public static void main(String[] args) {
+		ReadAllFiles.read("parking.csv", "properties.csv", "PopulationData", "csv");
+		TreeMap<String, String> finesPerCapita = FinesPerCapitaCalculator.calculateFinesPerZipcode(DataStorage.fines, DataStorage.population);
+		for (String zipcodeForFines : finesPerCapita.keySet()) {
+			System.out.println(zipcodeForFines + " " + finesPerCapita.get(zipcodeForFines));
+		}
+	}
 
 }

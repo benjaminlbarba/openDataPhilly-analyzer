@@ -13,7 +13,7 @@ import edu.upenn.cit594.data.Fine;
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.logging.UserInfoLogger;
 
-public class ParkingViolationReaderCSV {
+public class ParkingViolationReaderCSV extends OpenPhillyFileReader {
 	
 	
 	public static LinkedList<Fine> read(String fileName) {
@@ -30,15 +30,24 @@ public class ParkingViolationReaderCSV {
 		while (parkingScanner.hasNext()) {
 			String parkingLine = parkingScanner.nextLine();
 			String[] parkingValues = parkingLine.split(",");
-			System.out.println(parkingLine);
-			if (parkingValues[6].compareTo("") != 0 & parkingValues[4].compareTo("PA") == 0) {
-				Fine fine = new Fine(Double.parseDouble(parkingValues[1]), parkingValues[6]);
-				fines.add(fine);
-			} else {
+			
+			//check if the number of inputs is correct
+			if (parkingValues.length != 7) {
 				continue;
 			}
+			String zipcode = parkingValues[6];
+			
+			// make sure necessary data is not missing and is in the correct format
+			if (isEmpty(zipcode) | isEmpty(parkingValues[1]) | !isNumeric(parkingValues[1]) | parkingValues[4].compareTo("PA") != 0) {
+				continue;
+			}
+			zipcode = convertZipcode(zipcode);
+			Double fineAmount = Double.parseDouble(parkingValues[1]);
+			Fine fine = new Fine(fineAmount, zipcode);
+			fines.add(fine);
 		}
 		return fines;
 	}
+	
 	
 }

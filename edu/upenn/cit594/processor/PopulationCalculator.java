@@ -3,6 +3,9 @@ package edu.upenn.cit594.processor;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import edu.upenn.cit594.data.DataStorage;
+import edu.upenn.cit594.datamanagement.ReadAllFiles;
+
 
 public class PopulationCalculator {
 	public static int totalPopulationInstance = 0;
@@ -34,6 +37,6 @@ public class PopulationCalculator {
 			return totalPopulation;
 		}	
 	}
-	
+
 	
 }
