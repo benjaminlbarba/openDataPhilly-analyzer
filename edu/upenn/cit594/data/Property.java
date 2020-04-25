@@ -4,6 +4,7 @@ public class Property {
 	Double marketValue;
 	Double totalLivableArea;
 	String zipcode;
+	int garageSpaces;
 	
 	public Double getMarketValue() {
 		return marketValue;
@@ -17,10 +18,15 @@ public class Property {
 		return zipcode;
 	}
 	
-	public Property(Double marketValue, Double totalLivableArea, String zipcode) {
+	public int getGarageSpaces() {
+		return garageSpaces;
+	}
+	
+	public Property(Double marketValue, Double totalLivableArea, int garageSpaces, String zipcode) {
 		this.marketValue = marketValue;
 		this.totalLivableArea = totalLivableArea;
 		this.zipcode = zipcode;
+		this.garageSpaces = garageSpaces;
 	}
 	
 	//TODO: move this to a .data package class?

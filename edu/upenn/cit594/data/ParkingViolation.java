@@ -10,6 +10,30 @@ public class ParkingViolation {
 	String violationIdentifier;
 	Fine fine;
 	
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public String getViolationDescription() {
+		return violationDescription;
+	}
+
+	public String getLicensePlateNumber() {
+		return licensePlateNumber;
+	}
+
+	public String getLicensePlateState() {
+		return licensePlateState;
+	}
+
+	public String getViolationIdentifier() {
+		return violationIdentifier;
+	}
+
+	public Fine getFine() {
+		return fine;
+	}
+	
 	public ParkingViolation(Date timestamp, Double fineAmount, String violationDescription, String licensePlateNumber, String licensePlateState,String violationIdentifier, String zipcode) {
 		this.timestamp = timestamp;
 		this.violationDescription = violationDescription;

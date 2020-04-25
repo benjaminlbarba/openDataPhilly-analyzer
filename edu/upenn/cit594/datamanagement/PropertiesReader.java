@@ -47,9 +47,10 @@ public class PropertiesReader {
 		int marketValueIndex = columnNames.indexOf("market_value");
 		int totalLivableAreaIndex = columnNames.indexOf("total_livable_area");
 		int zipcodeIndex = columnNames.indexOf("zip_code");
+		int garageSpacesIndex = columnNames.indexOf("garage_spaces");
 		for (String[] line : propertiesList) {
 			// TODO: makes sure zipcode is 5 numbers
-			Property property = new Property(Double.parseDouble(line[marketValueIndex]), Double.parseDouble(line[totalLivableAreaIndex]), line[zipcodeIndex]);
+			Property property = new Property(Double.parseDouble(line[marketValueIndex]), Double.parseDouble(line[totalLivableAreaIndex]), Integer.parseInt(line[garageSpacesIndex]), line[zipcodeIndex]);
 			properties.add(property);
 		}
 		return properties;
