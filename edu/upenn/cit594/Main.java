@@ -80,7 +80,7 @@ public class Main {
 			  zipcode = UserInput.readingZipCode();
 				UserInfoLogger.logStringAtThisTime(zipcode);
 				Pair <String,Double> result = PropertyPopulationParkingCalculator.calculateViolationsAtHighestGarageSpace(DataStorage.fines, DataStorage.properties, DataStorage.population);
-				System.out.println("Violations per Capita for Residential Properties at zipcode " + result.getKey() + " is " +  result.getValue() + ".");
+				System.out.println("Violations per Capita for zipcode with the highest number of garage spaces (zipcode " + result.getKey() + ") is " +  result.getValue() + ".");
 		  default:
 		    // code block
 			  break;
