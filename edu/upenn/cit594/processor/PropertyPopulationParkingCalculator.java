@@ -49,11 +49,15 @@ public class PropertyPopulationParkingCalculator {
 		String maxZipCode = "";
 		for (Map.Entry<String,Double> entry : garageSpacesMap.entrySet())  {
 			 String currZipcode = entry.getKey();
-			 Double currGarageSpacesPerCapita = entry.getValue() / population.get(currZipcode);
-	         if (currGarageSpacesPerCapita > maxGarageSpacesPerCapita) {
-	        	 maxGarageSpacesPerCapita = currGarageSpacesPerCapita;
-	        	 maxZipCode = currZipcode;
-	         }
+			 if (population.containsKey(currZipcode)) {
+				 //System.out.println(currZipcode);
+				 Double currGarageSpacesPerCapita = entry.getValue() / population.get(currZipcode);
+		         if (currGarageSpacesPerCapita > maxGarageSpacesPerCapita) {
+		        	 maxGarageSpacesPerCapita = currGarageSpacesPerCapita;
+		        	 maxZipCode = currZipcode;
+		         }
+			 }
+			
 	    }
 		
 		int numFines = 0;
@@ -63,6 +67,7 @@ public class PropertyPopulationParkingCalculator {
 			}
 		}
 		
+		//System.out.println("numFines = " + numFines);
 		Pair <String,Double> result = new Pair<>(maxZipCode, numFines / (population.get(maxZipCode) * 1.0));
 		return result;
 	}

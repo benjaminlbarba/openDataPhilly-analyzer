@@ -23,6 +23,8 @@ public class UserInput {
 				//prompt the user again
 			}
 		}
+		
+		in.close();
 		return input;
 	}
 	
