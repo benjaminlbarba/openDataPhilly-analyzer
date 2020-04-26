@@ -16,7 +16,7 @@ public interface PropertyAccessor {
 	
 	public int accessResult(String zipcode);
 	
-	public int putResult(String zipcode, int result);
+	public void putResult(String zipcode, int result);
 	
 	public HashMap<String, Integer> getResults();
 }

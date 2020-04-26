@@ -5,7 +5,7 @@ import java.util.HashMap;
 import edu.upenn.cit594.data.Property;
 
 public class MarketValueAccessor implements PropertyAccessor {
-	private static HashMap<String, Integer> results = new HashMap<>();
+	private static HashMap<String, Integer> MVresults = new HashMap<String, Integer>();
 	
 	@Override
 	public Double access(Property property) {
@@ -15,15 +15,14 @@ public class MarketValueAccessor implements PropertyAccessor {
 	
 	public int accessResult(String zipcode) {
 		// TODO Auto-generated method stub
-		return results.get(zipcode);
+		return MVresults.get(zipcode);
 	}
 	
-	public int putResult(String zipcode, int result) {
-		// TODO Auto-generated method stub
-		return results.put(zipcode, result);
+	public void putResult(String zipcode, int result) {
+		MVresults.put(zipcode, result);
 	}
 	
 	public HashMap<String, Integer> getResults(){
-		return results;
+		return MVresults;
 	}
 }

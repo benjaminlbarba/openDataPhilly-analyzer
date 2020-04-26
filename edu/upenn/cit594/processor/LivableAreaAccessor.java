@@ -21,9 +21,9 @@ public class LivableAreaAccessor implements PropertyAccessor {
 	}
 	
 	@Override
-	public int putResult(String zipcode, int result) {
+	public void putResult(String zipcode, int result) {
 		// TODO Auto-generated method stub
-		return results.put(zipcode, result);
+		results.put(zipcode, result);
 	}
 
 	@Override
