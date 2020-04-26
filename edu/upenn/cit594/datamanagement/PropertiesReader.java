@@ -7,13 +7,16 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.logging.UserInfoLogger;
 
 public class PropertiesReader {
 	
 	public static LinkedList<Property> read(String fileName) {
-		LinkedList<Property> properties = new LinkedList<Property>();
 		File fileToParse = new File(fileName);
+		UserInfoLogger.logStringAtThisTime(fileName);
 		
+		LinkedList<Property> properties = new LinkedList<Property>();
+
 		Scanner in;
 		try {
 			in = new Scanner(fileToParse);
