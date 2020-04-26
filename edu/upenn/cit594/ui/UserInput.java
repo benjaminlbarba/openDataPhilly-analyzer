@@ -27,20 +27,20 @@ public class UserInput {
 	
 	public static String readingZipCode(){
 		Scanner in = new Scanner(System.in);
+		int inputTracker = -1;
 		String input = "";
-		while (OpenPhillyFileReader.isValidZipcode(input)) {
+		while (inputTracker < 0) {
 			System.out.println("Please input a 9 digit zipcode.");
-			try {	
-				input = in.nextLine();
-			}
-			catch(InputMismatchException e) {
+			input = in.nextLine();
+			if (OpenPhillyFileReader.isValidZipcode(input)) {
+				break;
+			} else {
 				System.out.println("Invalid input you trickster!");
-				in.nextLine();
+				//prompt the user again
 			}
 			//prompt the user again
 		}
 		
-		in.close();
 		return input;
 	}
 	
