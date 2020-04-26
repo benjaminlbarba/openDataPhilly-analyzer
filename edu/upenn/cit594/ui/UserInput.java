@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.datamanagement.OpenPhillyFileReader;
 
 public class UserInput {
@@ -23,8 +22,6 @@ public class UserInput {
 				//prompt the user again
 			}
 		}
-		
-		in.close();
 		return input;
 	}
 	
