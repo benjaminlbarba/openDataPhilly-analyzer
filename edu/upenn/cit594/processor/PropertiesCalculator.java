@@ -2,6 +2,7 @@ package edu.upenn.cit594.processor;
 
 import java.util.LinkedList;
 import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.datamanagement.OpenPhillyFileReader;
 
 
 
@@ -43,7 +44,7 @@ public class PropertiesCalculator {
 	 */
 	public static int calculateAvgForPropertyAttribute(PropertyAccessor pa, LinkedList<Property> properties, String zipcode){
 		//if the user enters an input that is not a valid ZIP
-		if (!Property.isValidZipCode(zipcode)) {
+		if (!OpenPhillyFileReader.isValidZipcode(zipcode)) {
 			return 0;
 		}
 		

@@ -135,7 +135,7 @@ public class PropertiesReader {
 					}
 				}
 				String zipcode = entries[indexZipcode];
-				if (Property.isValidZipCode(zipcode)){
+				if (OpenPhillyFileReader.isValidZipcode(zipcode)){
 					zipcode = zipcode.substring(0, 5);
 				}
 				

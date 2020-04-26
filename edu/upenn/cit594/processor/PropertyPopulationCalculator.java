@@ -2,6 +2,9 @@ package edu.upenn.cit594.processor;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.TreeMap;
+
+import edu.upenn.cit594.data.DataStorage;
 import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.datamanagement.ReadAllFiles;
 
@@ -34,7 +37,11 @@ public class PropertyPopulationCalculator {
 	 */
 	public static int calculateMarketValuePerCapita(LinkedList<Property> properties, String zipcode, HashMap<String, Integer> population){
 		//if the user enters an input that is not a valid ZIP
-		if (!Property.isValidZipCode(zipcode) | !population.containsKey(zipcode) | population.get(zipcode) == 0) {
+		if (!population.containsKey(zipcode)) {
+			return 0;
+		}
+		
+		if (population.get(zipcode) == 0) {
 			return 0;
 		}
 		
@@ -59,6 +66,6 @@ public class PropertyPopulationCalculator {
 		
 		return result;
 	}
-	
+
 }
 

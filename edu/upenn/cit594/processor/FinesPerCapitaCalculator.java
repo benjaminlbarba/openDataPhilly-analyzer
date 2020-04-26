@@ -57,12 +57,5 @@ public class FinesPerCapitaCalculator{
 		}
 	}
 	
-	public static void main(String[] args) {
-		ReadAllFiles.read("parking.csv", "properties.csv", "PopulationData", "csv");
-		TreeMap<String, String> finesPerCapita = FinesPerCapitaCalculator.calculateFinesPerZipcode(DataStorage.fines, DataStorage.population);
-		for (String zipcodeForFines : finesPerCapita.keySet()) {
-			System.out.println(zipcodeForFines + " " + finesPerCapita.get(zipcodeForFines));
-		}
-	}
 
 }

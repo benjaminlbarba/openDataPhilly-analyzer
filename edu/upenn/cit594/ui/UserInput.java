@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.datamanagement.OpenPhillyFileReader;
 
 public class UserInput {
 	
@@ -16,7 +17,6 @@ public class UserInput {
 			System.out.println("Please input a number 0 - 6");
 			input = in.nextInt();
 			if (isValidInput(input)) {
-				System.out.println(input);
 				break;
 			} else {
 				System.out.println("Invalid input you trickster!");
@@ -29,7 +29,7 @@ public class UserInput {
 	public static String readingZipCode(){
 		Scanner in = new Scanner(System.in);
 		String input = "";
-		while (Property.isValidZipCode(input)) {
+		while (OpenPhillyFileReader.isValidZipcode(input)) {
 			System.out.println("Please input a 9 digit zipcode.");
 			try {	
 				input = in.nextLine();

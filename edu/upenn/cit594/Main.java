@@ -5,8 +5,10 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 
 import edu.upenn.cit594.data.DataStorage;
+import edu.upenn.cit594.data.Fine;
 import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.datamanagement.ParkingViolationReaderCSV;
+import edu.upenn.cit594.datamanagement.ParkingViolationReaderJSON;
 import edu.upenn.cit594.datamanagement.PopulationReader;
 import edu.upenn.cit594.datamanagement.ReadAllFiles;
 import edu.upenn.cit594.logging.Logger;
@@ -52,7 +54,7 @@ public class Main {
 			System.exit(0);
 		    break;
 		  case 1:
-			System.out.println(PopulationCalculator.calculateTotalPopulation(DataStorage.population));
+			System.out.println("Total Population: " + PopulationCalculator.calculateTotalPopulation(DataStorage.population));
 		    break;
 		  case 2:
 			TreeMap<String, String> finesPerCapita = FinesPerCapitaCalculator.calculateFinesPerZipcode(DataStorage.fines, DataStorage.population);
@@ -91,7 +93,6 @@ public class Main {
 	
 	private static int argumentHandler(String[] args) {
 		UserInfoLogger.logStringArrayAtThisTime(args);
-		System.out.println("yes");
 		for (int i = 0; i < args.length; i++) {
 			System.out.println("args[" + i + "] = " + args[i]);
 		}

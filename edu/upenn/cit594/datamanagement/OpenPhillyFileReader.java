@@ -24,12 +24,24 @@ public abstract class OpenPhillyFileReader {
 	}
 	
 	public static String convertZipcode(String zipcode) {
-		if (zipcode.length() > 5) {
+		if (!isValidZipcode(zipcode)) {
 			return zipcode.substring(0, 5);
 		}
 		else {
 			return zipcode;
 		}
+	}
+	
+	public static boolean isValidZipcode(String input) {
+		if (input.length() < 5) {
+			return false;
+		}
+			
+		if(!input.matches("[0-9]+")){
+			return false;
+		}
+			
+		return true;
 	}
 	
 	public static boolean isNumeric(String value) {
