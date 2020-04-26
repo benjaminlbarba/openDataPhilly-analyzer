@@ -28,20 +28,20 @@ public class Property {
 		this.zipcode = zipcode;
 		this.garageSpaces = garageSpaces;
 	}
-	
+
 	//TODO: move this to a .data package class?
 	public static boolean isValidZipCode(String input) {
-		if (input.length() != 9) {
-			System.out.println("Invalid zipcode: zipcode must be 9 digits long.");
+		if (input.length() < 5) {
+			//System.out.println("Invalid zipcode (" + input + ") zipcode must be 9 digits long.");
 			return false;
 		}
 		
 		if(!input.matches("[0-9]+")){
-			System.out.println("Invalid zipcode: all input must be numbers.");
+			//System.out.println("Invalid zipcode: all input must be numbers.");
 			return false;
 		}
 		
-		return false;
+		return true;
 	}
 
 }
