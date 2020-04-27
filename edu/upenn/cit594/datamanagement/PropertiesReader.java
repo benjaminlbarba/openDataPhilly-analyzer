@@ -1,15 +1,17 @@
 package edu.upenn.cit594.datamanagement;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
-
 import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.logging.UserInfoLogger;
 
-public class PropertiesReader {
+/*
+ * This class reads in the properties data set. It extends the abstract class OpenPhillyFileReader.
+ * It's only method, read, returns a linkedlist containing the data filtered for wrong or missing information.
+ */
+public class PropertiesReader extends OpenPhillyFileReader {
 	
 	public static LinkedList<Property> read(String fileName) {
 		File fileToParse = new File(fileName);

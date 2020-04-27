@@ -1,5 +1,9 @@
 package edu.upenn.cit594.data;
 
+/*
+ * This class represents a row of the properties data set. It contains values for marketValue,
+ * totalLivableArea, zipcode, and garageSpaces.
+ */
 public class Property {
 	Double marketValue;
 	Double totalLivableArea;

@@ -3,11 +3,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
-
 import edu.upenn.cit594.logging.UserInfoLogger;
 
-
-
+/*
+ * This class reads in the population data set. It extends the abstract class OpenPhillyFileReader.
+ * It's only method, read, returns a hashmap containing the data filtered for wrong or missing information.
+ */
 public class PopulationReader extends OpenPhillyFileReader {
 
 	

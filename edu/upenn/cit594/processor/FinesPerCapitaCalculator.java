@@ -5,20 +5,18 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeMap;
-
-import edu.upenn.cit594.data.DataStorage;
 import edu.upenn.cit594.data.Fine;
-import edu.upenn.cit594.datamanagement.ReadAllFiles;
 
+/*
+ * This class handles the calculation for user input 2. It also uses memoization.
+ */
 public class FinesPerCapitaCalculator{
 	public static TreeMap<String, String> finesPerCapitaInstance = new TreeMap<>();
-
-	/*
-	 * If the user enters a 2 when prompted for input in Step #0, your program should display
-		(to the console) the total fines per capita for each ZIP Code, i.e. the total aggregate
-		fines divided by the population of that ZIP Code, as provided in the population input file.
-	 */
 	
+	/*
+	 * This method completes the calculation with the input data of fines and population. It finds the the total
+	 * amount of fines in each zipcode in PA.
+	 */
 	public static TreeMap<String, String> calculateFinesPerZipcode(LinkedList<Fine>fines, HashMap<String, Integer> population) {
 		if (!finesPerCapitaInstance.isEmpty()) {
 			return finesPerCapitaInstance;

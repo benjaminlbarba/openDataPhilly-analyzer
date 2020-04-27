@@ -1,10 +1,11 @@
 package edu.upenn.cit594.processor;
 
 import java.util.HashMap;
-import java.util.Map;
-
 import edu.upenn.cit594.data.Property;
 
+/*
+ * This class accesses livable area data.
+ */
 public class LivableAreaAccessor implements PropertyAccessor {
 	public static HashMap<String, Integer> results = new HashMap<>();
 	

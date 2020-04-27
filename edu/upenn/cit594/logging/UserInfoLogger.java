@@ -2,46 +2,45 @@ package edu.upenn.cit594.logging;
 
 /**
  * 
- * When the program starts, it should write the current time followed by a single whitespace, 
- * followed by each of the runtime arguments, each of which is separated by a single whitespace.
- * 
- * Whenever an input file is opened for reading, the program should write the current time 
- * and the name of the file to the log file. 
- * 
- * When the user makes a choice from the prompt in Step #0, the program should write
- * the current time and the user’s selection to the log file.
- * 
- * If the user enters a ZIP Code in Step #3, 4, or 5, the program should write the current
- * time and the specified ZIP Code to the log file.
- * You do not need to log anything for your additional feature in Step #6.
+ * The userinfologger class passes results and user inputs from the main class to the logger to be 
+ * logged in the logged file.
  * @author ulven & barba
  *
  */
 public class UserInfoLogger {
+	static Logger logger = Logger.getInstance();
 	
 	public static void logTime() {
 		long time = System.currentTimeMillis();
-		Logger.getInstance().log(Long.toString(time) + " ");
-		Logger.getInstance().end();
+		logger.log(Long.toString(time) + " ");
 	}
 	
+	/*
+	 * This method is used to log the user input and the current time.
+	 */
 	public static void logIntAtThisTime(int myInt) {
-		logTime();
-		Logger.getInstance().log(Integer.toString(myInt));
-		Logger.getInstance().end();
+		long time = System.currentTimeMillis();
+		logger.log(Long.toString(time) + " " + Integer.toString(myInt));
 	}
 	
+	/*
+	 * This method is used to log the zipcode or filenames.
+	 */
 	public static void logStringAtThisTime(String myString) {
-		logTime();
-		Logger.getInstance().log(myString);
-		Logger.getInstance().end();
+		long time = System.currentTimeMillis();
+		logger.log(Long.toString(time) + " " + myString);
 	}
 	
+	/*
+	 * This method is used for logging the input arguments.
+	 */
 	public static void logStringArrayAtThisTime(String[] args) {
-		logTime();
+		long time = System.currentTimeMillis();
+		String argsConcatenated = "";
 		for (String arg : args) {
-			Logger.getInstance().log(arg);
+			argsConcatenated += arg;
+			argsConcatenated += " ";
 		}
-		Logger.getInstance().end();
+		logger.log(Long.toString(time) + " " + argsConcatenated);
 	}
 }

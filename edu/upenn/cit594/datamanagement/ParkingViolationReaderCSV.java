@@ -2,17 +2,15 @@ package edu.upenn.cit594.datamanagement;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.Scanner;
-
 import edu.upenn.cit594.data.Fine;
-import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.logging.UserInfoLogger;
 
+
+ /* This class reads in the parking data set. It extends the abstract class OpenPhillyFileReader.
+ * It's only method, read, returns a linkedlist containing the data filtered for wrong or missing information.
+ */
 public class ParkingViolationReaderCSV extends OpenPhillyFileReader {
 	
 	

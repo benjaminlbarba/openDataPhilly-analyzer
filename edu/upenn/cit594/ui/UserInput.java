@@ -1,30 +1,38 @@
 package edu.upenn.cit594.ui;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import edu.upenn.cit594.datamanagement.OpenPhillyFileReader;
 
+/*
+ * This class reads in the user inputs for the calculation selection and entered zipcode.
+ */
 public class UserInput {
 	
+	/*
+	 * Reads in the selection of the calculation from the user and returns it.
+	 */
 	public static int readingOperationSelection(){
 		Scanner in = new Scanner(System.in);
 		int inputTracker = -1;
-		int input = -1;
+		String inputString = "";
 		while (inputTracker < 0) {
 			System.out.println("Please input a number 0 - 6");
-			input = in.nextInt();
-			if (isValidInput(input)) {
+			inputString = in.nextLine();
+			if (isValidInput(inputString)) {
 				break;
 			} else {
 				System.out.println("Invalid input you trickster!");
 				//prompt the user again
 			}
 		}
+		int input = Integer.parseInt(inputString);
 		return input;
 	}
 	
+	/*
+	 * Reads the zipcode entered by the user.
+	 */
 	public static String readingZipCode(){
 		Scanner in = new Scanner(System.in);
 		int inputTracker = -1;
@@ -36,7 +44,6 @@ public class UserInput {
 				break;
 			} else {
 				System.out.println("Invalid input you trickster!");
-				//prompt the user again
 			}
 			//prompt the user again
 		}
@@ -44,19 +51,23 @@ public class UserInput {
 		return input;
 	}
 	
-	public static boolean isValidInput(int input) {
-		ArrayList<Integer> validInputs = new ArrayList<Integer>();
-		validInputs.add(0);
-		validInputs.add(1);
-		validInputs.add(2);
-		validInputs.add(3);
-		validInputs.add(4);
-		validInputs.add(5);
-		validInputs.add(6);
+	/*
+	 * Checks to make sure the input is correct.
+	 */
+	public static boolean isValidInput(String input) {
+		ArrayList<String> validInputs = new ArrayList<String>();
+		validInputs.add("0");
+		validInputs.add("1");
+		validInputs.add("2");
+		validInputs.add("3");
+		validInputs.add("4");
+		validInputs.add("5");
+		validInputs.add("6");
 		if (validInputs.contains(input)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+	
 }

@@ -1,15 +1,8 @@
 package edu.upenn.cit594;
 
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.TreeMap;
 
 import edu.upenn.cit594.data.DataStorage;
-import edu.upenn.cit594.data.Fine;
-import edu.upenn.cit594.data.Property;
-import edu.upenn.cit594.datamanagement.ParkingViolationReaderCSV;
-import edu.upenn.cit594.datamanagement.ParkingViolationReaderJSON;
-import edu.upenn.cit594.datamanagement.PopulationReader;
 import edu.upenn.cit594.datamanagement.ReadAllFiles;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.logging.UserInfoLogger;
@@ -25,7 +18,7 @@ import javafx.util.Pair;
 
 /**
  * 
- * Handles arguments and runs processes
+ * The main class handles arguments and runs processes.
  * @author benjamin.barba & lexie ulven
  *
  */
@@ -49,13 +42,15 @@ public class Main {
 		int input = UserInput.readingOperationSelection();
 		UserInfoLogger.logIntAtThisTime(input);
 		
+		// This switch handles all the inputs from the user and displays results to the console as needed.
 		switch(input) {
 		  case 0:
 			System.out.println("Exiting the program");
 			System.exit(0);
+			Logger.getInstance().end();
 		    break;
 		  case 1:
-			System.out.println("Total Population: " + PopulationCalculator.calculateTotalPopulation(DataStorage.population));
+			System.out.println(PopulationCalculator.calculateTotalPopulation(DataStorage.population));
 		    break;
 		  case 2:
 			TreeMap<String, String> finesPerCapita = FinesPerCapitaCalculator.calculateFinesPerZipcode(DataStorage.fines, DataStorage.population);
@@ -81,7 +76,6 @@ public class Main {
 			int marketValuePerCapita = PropertyPopulationCalculator.calculateMarketValuePerCapita(DataStorage.properties, zipcode, DataStorage.population);
 			System.out.println("Market Value per Capita for Residential Properties at zipcode " + zipcode + " is " +  marketValuePerCapita + ".");
 		  case 6:
-			UserInfoLogger.logTime();
 			Pair <String,Double> result = PropertyPopulationParkingCalculator.calculateViolationsAtHighestGarageSpace(DataStorage.fines, DataStorage.properties, DataStorage.population);
 			System.out.println("Violations per Capita for zipcode with the highest number of garage spaces (zipcode " + result.getKey() + ") is " +  result.getValue() + ".");
 		  default:
@@ -92,11 +86,10 @@ public class Main {
 		inputHandler();
 	}
 	
+	/*
+	 * Argument handler method takes in the arguments presented to main, logs them, and reads them.
+	 */
 	private static int argumentHandler(String[] args) {
-		UserInfoLogger.logStringArrayAtThisTime(args);
-		for (int i = 0; i < args.length; i++) {
-			System.out.println("args[" + i + "] = " + args[i]);
-		}
 		
 		if (args.length == NUM_ARGS) {			
 			String fileType = args[0];
@@ -108,7 +101,9 @@ public class Main {
 				return -1;
 			}
 			
-			Logger.initFileName(fileNameLog);
+			Logger logger = Logger.getInstance();
+			logger.initFileName(fileNameLog);
+			UserInfoLogger.logStringArrayAtThisTime(args);
 			
 			ReadAllFiles.read(fileNameParkingViolations, fileNamePropertyValues, fileNamePopulation, fileType);
 			
@@ -123,7 +118,9 @@ public class Main {
 		return 0;
 	}
 	
-	
+	/*
+	 * The main method begins the program.
+	 */
 	public static void main(String[] args) {
 		argumentHandler(args);
 	}

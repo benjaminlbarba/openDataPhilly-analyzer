@@ -1,8 +1,7 @@
 package edu.upenn.cit594.data;
 
 /**
- *  i.e. the money that was charged as penalty to the vehicle, as well as information about the location 
- *  at which it occurred, the violation’s ZIP Code, which is a numerical code.
+ * This class represents a fine. The values include the amount of the fine and zipcode
  * @author @author benjamin.barba & lexie ulven
  *
  */

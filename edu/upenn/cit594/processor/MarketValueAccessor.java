@@ -1,9 +1,11 @@
 package edu.upenn.cit594.processor;
 
 import java.util.HashMap;
-
 import edu.upenn.cit594.data.Property;
 
+/*
+ * This class accesses the market value data.
+ */
 public class MarketValueAccessor implements PropertyAccessor {
 	private static HashMap<String, Integer> MVresults = new HashMap<String, Integer>();
 	
