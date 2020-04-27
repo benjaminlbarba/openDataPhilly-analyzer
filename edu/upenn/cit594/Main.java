@@ -1,8 +1,10 @@
 package edu.upenn.cit594;
 
+import java.util.LinkedList;
 import java.util.TreeMap;
 
 import edu.upenn.cit594.data.DataStorage;
+import edu.upenn.cit594.data.GarageAndFinesPair;
 import edu.upenn.cit594.datamanagement.ReadAllFiles;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.logging.UserInfoLogger;
@@ -77,8 +79,12 @@ public class Main {
 			System.out.println("Market Value per Capita for Residential Properties at zipcode " + zipcode + " is " +  marketValuePerCapita + ".");
 			break;
 		  case 6:
-			Pair <String,Double> result = PropertyPopulationParkingCalculator.calculateViolationsAtHighestGarageSpace(DataStorage.fines, DataStorage.properties, DataStorage.population);
-			System.out.println("Violations per Capita for zipcode with the highest number of garage spaces (zipcode " + result.getKey() + ") is " +  result.getValue() + ".");
+			LinkedList<Pair<String, GarageAndFinesPair>> orderedList = PropertyPopulationParkingCalculator.calculateViolationsAtHighestGarageSpace(DataStorage.fines, DataStorage.properties, DataStorage.population);
+			System.out.println("zipcodes ordered from least to greatest garage space per capita:");
+			for (Pair<String, GarageAndFinesPair> pair : orderedList) {
+				System.out.println("zipcode: " + pair.getKey() + ", garage spaces PC = " + pair.getValue().getNumGarageSpacesperCapita()  + ", fines PC = " + pair.getValue().getNumFinesPerCapita() );
+			}
+			//System.out.println("Violations per Capita for zipcode with the highest number of garage spaces (zipcode " + result.getKey() + ") is " +  result.getValue() + ".");
 			break;
 		  default:
 		    // code block

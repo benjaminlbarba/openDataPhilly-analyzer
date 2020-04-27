@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import edu.upenn.cit594.data.Fine;
+import edu.upenn.cit594.data.GarageAndFinesPair;
 import edu.upenn.cit594.data.Property;
 import javafx.util.Pair;
 
@@ -14,7 +15,27 @@ import javafx.util.Pair;
  *
  */
 public class PropertyPopulationParkingCalculator {
-	private static Pair<String, Double> result = new Pair<>("", -1.0);
+	private static LinkedList<Pair<String, GarageAndFinesPair>> result = new LinkedList<>();
+	
+	public static void insertIntoOrderList(LinkedList<Pair<String, GarageAndFinesPair>> orderedList, Pair<String, GarageAndFinesPair> newPair) {
+		if (orderedList.size() == 0) {
+			orderedList.add(newPair);
+		}
+		else {
+			for (int i = 0; i < orderedList.size(); i++) {
+				Double currVal = orderedList.get(i).getValue().getNumGarageSpacesperCapita();
+				Double newVal = newPair.getValue().getNumGarageSpacesperCapita() ;
+				
+				if (newVal < currVal) {
+					orderedList.add(i, newPair);
+					return;
+				}
+			}
+			//found nothing smaller, adding to end
+			orderedList.add(newPair);
+		}
+	}
+	
 	
 	/**
 	 * What was the number of traffic violation per capita 
@@ -24,17 +45,35 @@ public class PropertyPopulationParkingCalculator {
 	 * @param population
 	 * @return
 	 */
-	public static Pair <String,Double> calculateViolationsAtHighestGarageSpace(LinkedList<Fine> fines, LinkedList<Property> properties, HashMap<String, Integer> population) {
-		if (result.getKey() != "") {
+	public static LinkedList<Pair<String, GarageAndFinesPair>> calculateViolationsAtHighestGarageSpace(LinkedList<Fine> fines, LinkedList<Property> properties, HashMap<String, Integer> populationOriginal) {
+		if (result.size() > 0) {
 			return result;
 		}
 		
-		//zipcode, num garage spaces
+		HashMap<String, Integer> population = new HashMap<>();
+		for (Map.Entry<String, Integer> entry : populationOriginal.entrySet()) {
+		    String zipcode = entry.getKey();
+		    if (!zipcode.isEmpty() && zipcode.length() > 5) {
+				zipcode = zipcode.substring(0, 5);
+			}
+		    
+		    population.put(zipcode, entry.getValue());
+		}
+		
+		
+		//System.out.println("calculateViolationsAtHighestGarageSpace called");
+		LinkedList<Pair<String, GarageAndFinesPair>> orderedList = new LinkedList<>();
+		
+		//<zipcode, num garage spaces>
 		HashMap<String, Double> garageSpacesMap = new HashMap<>();
+		
 		
 		//iterate through properties to find number of garagespaces per zipcode
 		for (Property property : properties) {
 			String zipcode = property.getZipcode();
+			if (!zipcode.isEmpty() && zipcode.length() > 5) {
+				zipcode = zipcode.substring(0, 5);
+			}
 			if (garageSpacesMap.containsKey(zipcode)) {
 				Double currentGarageSpaces = garageSpacesMap.get(zipcode);
 				garageSpacesMap.put(zipcode,  currentGarageSpaces + property.getGarageSpaces());
@@ -44,31 +83,51 @@ public class PropertyPopulationParkingCalculator {
 			}
 		}
 		
-		//zipcode, garage space per capita
-		Double maxGarageSpacesPerCapita = 0.0;
-		String maxZipCode = "";
-		for (Map.Entry<String,Double> entry : garageSpacesMap.entrySet())  {
-			 String currZipcode = entry.getKey();
-			 if (population.containsKey(currZipcode)) {
-				 //System.out.println(currZipcode);
-				 Double currGarageSpacesPerCapita = entry.getValue() / population.get(currZipcode);
-		         if (currGarageSpacesPerCapita > maxGarageSpacesPerCapita) {
-		        	 maxGarageSpacesPerCapita = currGarageSpacesPerCapita;
-		        	 maxZipCode = currZipcode;
-		         }
-			 }
-			
-	    }
-		
+		//get fines for each zipcode
+		HashMap<String, Integer> numFinesMap = new HashMap<>();
 		int numFines = 0;
+		//System.out.println("fines.size = " + fines.size() );
 		for (Fine fine : fines) {
-			if (fine.getZipcode() == maxZipCode) {
-				numFines++;
+			//System.out.println("fine found");
+			String zipcode = fine.getZipcode();
+			if (!zipcode.isEmpty() && zipcode.length() > 5) {
+				zipcode = zipcode.substring(0, 5);
+			}
+			if (numFinesMap.containsKey(zipcode)) {
+				int currNumFines = numFinesMap.get(zipcode);
+				numFinesMap.put(zipcode,  currNumFines + 1);
+			}
+			else {
+				numFinesMap.put(zipcode, 1);
 			}
 		}
 		
-		//System.out.println("numFines = " + numFines);
-		Pair <String,Double> result = new Pair<>(maxZipCode, numFines / (population.get(maxZipCode) * 1.0));
+//		System.out.println("numFinesMap:");
+//		for (Map.Entry<String, Integer> entry : numFinesMap.entrySet()) {
+//			System.out.println("zipcode = " + entry.getKey() + ", numFines = " + entry.getValue());
+//		}
+		
+		//System.out.println("hash map created");
+		//<zipcode, garage space per capita>
+		//Double maxGarageSpacesPerCapita = 0.0;
+		//String maxZipCode = "";
+		for (Map.Entry<String,Double> entry : garageSpacesMap.entrySet())  {
+			 String currZipcode = entry.getKey();
+			 //System.out.println("checking zipcode " + currZipcode);
+			 if (population.containsKey(currZipcode) && numFinesMap.containsKey(currZipcode)) {
+				 //System.out.println("FOUND");
+				 Double currGarageSpacesPerCapita = entry.getValue() / (population.get(currZipcode) * 1.0);
+		         Double numFinesPerCapita = numFinesMap.get(currZipcode) / (population.get(currZipcode) * 1.0);
+		         
+		         GarageAndFinesPair valuePair = new GarageAndFinesPair(currGarageSpacesPerCapita, numFinesPerCapita);
+				 Pair<String, GarageAndFinesPair> myPair = new Pair<>(currZipcode, valuePair);
+				 
+				 //create a linkedlist, organizing it from least to greatest
+				 insertIntoOrderList(orderedList, myPair);
+			 }
+	    }
+
+		result = orderedList;
 		return result;
 	}
 }

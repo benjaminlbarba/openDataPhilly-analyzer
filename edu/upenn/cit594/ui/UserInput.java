@@ -38,7 +38,7 @@ public class UserInput {
 		int inputTracker = -1;
 		String input = "";
 		while (inputTracker < 0) {
-			System.out.println("Please input a 9 digit zipcode.");
+			System.out.println("Please input a 5 digit zipcode.");
 			input = in.nextLine();
 			if (OpenPhillyFileReader.isValidZipcode(input)) {
 				break;
