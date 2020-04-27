@@ -75,9 +75,11 @@ public class Main {
 			UserInfoLogger.logStringAtThisTime(zipcode);
 			int marketValuePerCapita = PropertyPopulationCalculator.calculateMarketValuePerCapita(DataStorage.properties, zipcode, DataStorage.population);
 			System.out.println("Market Value per Capita for Residential Properties at zipcode " + zipcode + " is " +  marketValuePerCapita + ".");
+			break;
 		  case 6:
 			Pair <String,Double> result = PropertyPopulationParkingCalculator.calculateViolationsAtHighestGarageSpace(DataStorage.fines, DataStorage.properties, DataStorage.population);
 			System.out.println("Violations per Capita for zipcode with the highest number of garage spaces (zipcode " + result.getKey() + ") is " +  result.getValue() + ".");
+			break;
 		  default:
 		    // code block
 			  break;
