@@ -7,8 +7,10 @@ import edu.upenn.cit594.data.Property;
 
 /**
  * This class handles the calculation for user input 5 and memoization.
- *
- */
+ * Specifically it handles calculations involving properties linkedlist
+ * and population hashmap
+ * 
+ **/
 public class PropertyPopulationCalculator {
 	
 	static HashMap<String, Integer> results = new HashMap<>();

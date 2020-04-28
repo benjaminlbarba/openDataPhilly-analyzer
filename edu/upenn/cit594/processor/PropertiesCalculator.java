@@ -8,7 +8,8 @@ import edu.upenn.cit594.datamanagement.OpenPhillyFileReader;
 
 /**
  * This is step 3 and 4 in the hw
- * @author benjamin.barbaimbellus
+ * It handles calculations involving only the properties dataset
+ * @author benjamin barba & lexie ulven
  *
  */
 public class PropertiesCalculator {

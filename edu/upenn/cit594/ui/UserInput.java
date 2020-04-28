@@ -17,12 +17,12 @@ public class UserInput {
 		int inputTracker = -1;
 		String inputString = "";
 		while (inputTracker < 0) {
-			System.out.println("Please input a number 0 - 6");
+			Display.requestInput();
 			inputString = in.nextLine();
 			if (isValidInput(inputString)) {
 				break;
 			} else {
-				System.out.println("Invalid input you trickster!");
+				Display.errorInput();
 				//prompt the user again
 			}
 		}
@@ -38,12 +38,12 @@ public class UserInput {
 		int inputTracker = -1;
 		String input = "";
 		while (inputTracker < 0) {
-			System.out.println("Please input a 5 digit zipcode.");
+			Display.requestZipcode();
 			input = in.nextLine();
 			if (OpenPhillyFileReader.isValidZipcode(input)) {
 				break;
 			} else {
-				System.out.println("Invalid input you trickster!");
+				Display.errorInput();
 			}
 			//prompt the user again
 		}

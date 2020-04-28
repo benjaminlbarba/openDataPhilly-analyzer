@@ -10,8 +10,9 @@ import edu.upenn.cit594.data.Property;
 import javafx.util.Pair;
 
 /**
- * 
- * @author benjamin.barbaimbellus
+ * Handles calculations involving all three datasets
+ * Creates an ordered list based on garage spaces per capita
+ * @author benjamin barba & lexie ulven
  *
  */
 public class PropertyPopulationParkingCalculator {
@@ -102,15 +103,6 @@ public class PropertyPopulationParkingCalculator {
 			}
 		}
 		
-//		System.out.println("numFinesMap:");
-//		for (Map.Entry<String, Integer> entry : numFinesMap.entrySet()) {
-//			System.out.println("zipcode = " + entry.getKey() + ", numFines = " + entry.getValue());
-//		}
-		
-		//System.out.println("hash map created");
-		//<zipcode, garage space per capita>
-		//Double maxGarageSpacesPerCapita = 0.0;
-		//String maxZipCode = "";
 		for (Map.Entry<String,Double> entry : garageSpacesMap.entrySet())  {
 			 String currZipcode = entry.getKey();
 			 //System.out.println("checking zipcode " + currZipcode);

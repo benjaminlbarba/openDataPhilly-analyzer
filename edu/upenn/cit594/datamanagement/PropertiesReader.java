@@ -7,10 +7,10 @@ import java.util.Scanner;
 import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.logging.UserInfoLogger;
 
-/*
+/**
  * This class reads in the properties data set. It extends the abstract class OpenPhillyFileReader.
  * It's only method, read, returns a linkedlist containing the data filtered for wrong or missing information.
- */
+ **/
 public class PropertiesReader extends OpenPhillyFileReader {
 	
 	public static LinkedList<Property> read(String fileName) {
@@ -34,9 +34,8 @@ public class PropertiesReader extends OpenPhillyFileReader {
 				String line = in.nextLine();
 				String[] entriesOriginal = line.split(",");
 				
-				//do first time for first line
+				//do first time for first header line only
 				if (bLabelsLine) {
-					//System.out.println(line);
 					for (int i = 0; i < entriesOriginal.length; i++) {
 						String entry = entriesOriginal[i];
 						if (entry.equalsIgnoreCase("market_value")) {
@@ -59,6 +58,7 @@ public class PropertiesReader extends OpenPhillyFileReader {
 				
 				String[] entries = new String[entriesOriginal.length];
 				
+				//need to check for opening and closing quotation marks
 				String concatenatedEntry = "";
 				boolean bConcat = false;
 				int indexEntriesFinal = 0;
@@ -101,11 +101,6 @@ public class PropertiesReader extends OpenPhillyFileReader {
 				}
 				lnCounter++;
 				
-
-//				for (String entry : entries) {
-					//System.out.println("entry = " + entry);
-//				}
-				
 				String marketValueString = entries[indexMarketValue];
 				Double marketValue = -1.0;
 				if (!marketValueString.isEmpty()) {
@@ -138,11 +133,12 @@ public class PropertiesReader extends OpenPhillyFileReader {
 				}
 				String zipcode = entries[indexZipcode];
 				if (OpenPhillyFileReader.isValidZipcode(zipcode)){
-					zipcode = zipcode.substring(0, 5);
+					zipcode = convertZipcode(zipcode);
 				}
 				
+				//let through properties with an invalid zipcode.  
+				//They are still properties, just won't be involved in any zipcode calculations
 				Property newProperty = new Property(marketValue, totalLivableArea, garageSpaces, zipcode);
-				
 				properties.add(newProperty);
 			}
 			
@@ -152,10 +148,6 @@ public class PropertiesReader extends OpenPhillyFileReader {
 			e.printStackTrace();
 		}
 		
-//		for (int i = 0; i < 50; i++) {
-//			Property property = properties.get(i);
-//			System.out.println("Property["  + i + "]: " + "zipcode = " + property.getZipcode() + ", mv = " + property.getMarketValue() + ", gs = " + property.getGarageSpaces() );
-//		}
 		return properties;
 	}
 }
